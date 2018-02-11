@@ -6,6 +6,11 @@ import toolkit
 from InstagramDataService import InstagramDataService
 from Opt import Opt
 
+
+def register_toolkit():
+    pass
+
+
 def get_toolkit():
     """
     A set of available tools that the igcli toolkit provides.
@@ -13,7 +18,7 @@ def get_toolkit():
     Returns:
         A set of the tools available.
     """
-    return {'like-count'}
+    return {'like-sum', 'caption-hashtag-count-preview'}
 
 
 def get_opts(argv):
@@ -53,6 +58,7 @@ def gather_opts(options, requirements):
     tool are present in the options dictionary.
 
     Args:
+        options: The options available.
         requirements: A dictionary with mandatory and optional sets of options as requested by the calling tool.
 
     Returns:

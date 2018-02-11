@@ -3,6 +3,7 @@ import urllib.parse
 import lxml
 import requests
 
+
 class InstagramDataService():
 
     """
@@ -21,12 +22,10 @@ class InstagramDataService():
         """
         pass
 
-
     def users_user_id(self, user_id):
         """
         """
         pass
-
 
     def users_self_media_recent(self, **kwargs):
         """
@@ -76,7 +75,8 @@ class InstagramDataService():
             user_id: The ID of the user to retrieve media results for.
 
         Keyword Args:
-            after: Includes `count` results after the ID of the image provided in after. Defaults to none if not included.
+            after: Includes `count` results after the ID of the image provided in after.
+            Defaults to none if not included.
 
             count: The number of media entities to retrieve, defaults to 12.
 
@@ -84,7 +84,8 @@ class InstagramDataService():
             JSON formatted similarly to https://www.instagram.com/developer/endpoints/users/#get_users_media_recent
 
         Notes:
-            Divergences from the Instagram API: `max_id` has been subsumed by `after`, and `min_id` is no longer available.
+            Divergences from the Instagram API: `max_id` has been subsumed by `after`,
+            and `min_id` is no longer available.
         """
         if user_id is None:
             raise Exception("Please provide a user id")
@@ -99,7 +100,8 @@ class InstagramDataService():
 
         variables = '{{"id":{},"first":{}}}'.format(user_id, image_count_to_fetch) if images_after_id is None else '{{"id":{},"first":{}, "after": {}}}'.format(user_id, image_count_to_fetch, images_after_id)
 
-        r = requests.get('https://www.instagram.com/graphql/query/?query_id=17888483320059182&variables={}'.format(urllib.parse.quote(variables, safe='')))
+        r = requests.get('https://www.instagram.com/graphql/query/?query_id=17888483320059182&variables={}'
+                         .format(urllib.parse.quote(variables, safe='')))
 
         # Ensure status code is 200
         if r.status_code is not 200:
@@ -155,7 +157,6 @@ class InstagramDataService():
             'data': transformed_images
         }
 
-
     def users_self_media_liked(self):
         """
         """
@@ -177,8 +178,8 @@ class InstagramDataService():
 
         Notes:
             Divergences from the Instagram API: 1) Instagram has dropped support for first name and last names on the
-            platform in lieu of fullnames. 2) Instagram now provides a lot more data on each returned user via search. This
-            is included in the result.
+            platform in lieu of fullnames. 2) Instagram now provides a lot more data on each returned user via search.
+            This is included in the result.
         """
 
         # Ensure a search query is provided.

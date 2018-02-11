@@ -1,15 +1,19 @@
 from Opt import Opt
 from InstagramDataService import InstagramDataService
 
-class LikeCountTool():
+
+class LikeSumTool:
     """
+    Calculates the sum of likes for a user's photos and videos.
     """
     def __init__(self, instagram_data_service: InstagramDataService) -> None:
         """
+        Initialization.
         """
         self.instagram_data_service = instagram_data_service
 
-    def requested_options(self):
+    @staticmethod
+    def requested_options():
         """
         The options needed and preferred for the tool to run successfully.
 
@@ -17,13 +21,19 @@ class LikeCountTool():
             A dictionary containing two sets, `mandatory`, and `optional`.
         """
         return {
-            "mandatory": { Opt.Username },
+            "mandatory": {Opt.Username},
             "optional": set()
         }
 
-
     def run(self, options):
         """
+        Runs the tool.
+
+        Arguments:
+            options: The options the tools needs to run this command successfully.
+
+        Returns:
+            The like count for the particular user.
         """
         user_search_results = self.instagram_data_service.users_search(q=options[Opt.Username])
 
@@ -47,5 +57,9 @@ class LikeCountTool():
 
     def __str__(self):
         """
+        Retrieves the name of this tool.
+
+        Returns:
+            A stringified representation of this class. Just the name of the tool.
         """
-        return "like-count"
+        return "like-sum"

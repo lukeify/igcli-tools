@@ -4,3 +4,4 @@ from enum import Enum, unique
 class Opt(Enum):
     Tool = "tool"
     Username = "-u"
+    Caption = "-c"
