@@ -2,9 +2,10 @@ from Opt import Opt
 from InstagramDataService import InstagramDataService
 
 
-class LikeSumTool:
+class LikeAnalysisTool:
     """
-    Calculates the sum of likes for a user's photos and videos.
+    Calculates the sum of likes for a user's photos and videos, along with a mean, median, mode, and most liked &
+    least liked posts.
     """
     def __init__(self, instagram_data_service: InstagramDataService) -> None:
         """
@@ -22,7 +23,7 @@ class LikeSumTool:
         """
         return {
             "mandatory": {Opt.Username},
-            "optional": set()
+            "optional": {Opt.RecentPostLimit}
         }
 
     def run(self, options):
@@ -33,7 +34,7 @@ class LikeSumTool:
             options: The options the tools needs to run this command successfully.
 
         Returns:
-            The like count for the particular user.
+            The like analysis for the particular user.
         """
         user_search_results = self.instagram_data_service.users_search(q=options[Opt.Username])
 
@@ -62,4 +63,4 @@ class LikeSumTool:
         Returns:
             A stringified representation of this class. Just the name of the tool.
         """
-        return "like-sum"
+        return "like-analysis"

@@ -18,7 +18,7 @@ def get_toolkit():
     Returns:
         A set of the tools available.
     """
-    return {'like-sum', 'caption-hashtag-count-preview'}
+    return {'like-analysis', 'caption-hashtag-count-preview'}
 
 
 def get_opts(argv):

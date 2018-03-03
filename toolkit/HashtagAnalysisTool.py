@@ -2,9 +2,10 @@ from Opt import Opt
 from InstagramDataService import InstagramDataService
 
 
-class CaptionHashtagCountPreviewTool:
+class HashtagAnalysisTool:
     """
-    Calculates the amount of hashtags in a given caption, provided by the user.
+    Calculates the number of hashtags the user has used in their captions for their posts; along with a mean, median,
+    mode, and most used hashtags.
     """
     def __init__(self, instagram_data_service: InstagramDataService) -> None:
         """
@@ -21,12 +22,19 @@ class CaptionHashtagCountPreviewTool:
             A dictionary containing two sets, `mandatory`, and `optional`.
         """
         return {
-            "mandatory": {Opt.Caption},
-            "optional": set()
+            "mandatory": {Opt.Username},
+            "optional": {Opt.RecentPostLimit}
         }
 
     def run(self, options):
         """
+        Runs the tool.
+
+        Arguments:
+            options: The options the tools needs to run this command successfully.
+
+        Returns:
+            The hashtag analysis for the particular user.
         """
         words_in_caption = options[Opt.Caption].split(" ")
 
@@ -53,4 +61,4 @@ class CaptionHashtagCountPreviewTool:
         Returns:
             A stringified representation of this class. Just the name of the tool.
         """
-        return 'caption-hashtag-count-preview'
+        return 'hashtag-analysis'
