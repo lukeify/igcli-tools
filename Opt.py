@@ -5,5 +5,6 @@ from enum import Enum, unique
 class Opt(Enum):
     Tool = "tool"
     Username = "-u"
-    Caption = "-c",
+    Caption = "-c"
     RecentPostLimit = "-rpl"
+    File = "-file"

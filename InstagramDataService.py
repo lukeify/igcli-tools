@@ -4,7 +4,7 @@ import lxml
 import requests
 
 
-class InstagramDataService():
+class InstagramDataService:
 
     """
     Provides
@@ -24,8 +24,41 @@ class InstagramDataService():
 
     def users_user_id(self, user_id):
         """
+        For the user with the provided user_id, returns their user details, including media counts, website, & bio.
+
+        Args:
+            user_id: The ID of the user to retrieve details for.
+
+        Returns:
+            JSON formatted similarly to https://www.instagram.com/developer/endpoints/users/#get_users
         """
-        pass
+        if user_id is None:
+            raise Exception("Please provide a user id")
+
+        r = requests.get('https://www.instagram.com/{}/?__a=1'
+                         .format(urllib.parse.quote(user_id, safe='')))
+
+        # Ensure status code is 200
+        if r.status_code is not 200:
+            raise Exception("Instagram responded with {} status code".format(str(r.status_code)))
+
+        json_response = r.json()
+
+        return {
+            'data': {
+                'id': json_response['graphql']['user']['id'],
+                'username': json_response['graphql']['user']['username'],
+                'full_name': json_response['graphql']['user']['full_name'],
+                'profile_picture': json_response['graphql']['user']['profile_pic_url_hd'],
+                'bio': json_response['graphql']['user']['biography'],
+                'website': json_response['graphql']['user']['external_url'],
+                'counts': {
+                    'media': json_response['graphql']['user']['edge_owner_to_timeline_media']['count'],
+                    'follows': json_response['graphql']['user']['edge_follow']['count'],
+                    'followed_by': json_response['graphql']['user']['edge_followed_by']['count']
+                }
+            }
+        }
 
     def users_self_media_recent(self, **kwargs):
         """
@@ -118,7 +151,7 @@ class InstagramDataService():
             # Pull across useful properties
             transformed_image = {
                 "id": image['node']['id'],
-                "ceated_at_timestamp": image['node']['taken_at_timestamp'],
+                "created_at_timestamp": image['node']['taken_at_timestamp'],
                 "caption": None, # Set later if applicable
                 "comments": {
                     "count": image['node']['edge_media_to_comment']['count'],
