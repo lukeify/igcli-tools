@@ -12,12 +12,14 @@ Command line application to run various metrics and analysis tools on your, and 
 Follow the instructions below to install this script. Once installed, you can run any of the tools with the following command.
 
 ```
-python3 igcli-tools.py <toolname> <tooloptions>
+python3 igcli.py <toolname> <tooloptions>
 ```
 
-At present, there are only three functioning tools in the toolkit:
+At present, there are only four functioning tools in the toolkit:
 
 * `like-analysis`. For a given user, calculate the number of likes they have received. Returns the number of likes.
+* `hashtag-analysis`. Calculates the number of hashtags the user has used in their captions for their posts; along with a mean, median,
+    mode, and most used hashtags.
 * `caption-hashtag-count-preview`. For a given caption, return the number of hashtags present within it, and determine if it will successfully post.
 * `user-scoreboard`. For a given newline-separated file of usernames, return the users ordered by most posts.
 

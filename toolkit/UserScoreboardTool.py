@@ -50,12 +50,12 @@ class UserScoreboardTool:
         for username in usernames:
             time.sleep(2)
             try:
-                media_count = self.instagram_data_service.users_user_id(username)['data']['counts']['media']
+                media_count = self.instagram_data_service.user_info(username)['data']['counts']['media']
                 users_by_media_count.append({
                     'username': username,
                     'count': media_count
                 })
-            except Exception:
+            except Exception as e:
                 print("User could not be found: {}. Skipping...".format(username))
 
         for user_with_media_count in sorted(users_by_media_count, key=lambda user: user['count'], reverse=True):

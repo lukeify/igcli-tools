@@ -1,6 +1,7 @@
+import time
+
 from Opt import Opt
 from InstagramDataService import InstagramDataService
-
 
 class LikeAnalysisTool:
     """
@@ -36,23 +37,36 @@ class LikeAnalysisTool:
         Returns:
             The like analysis for the particular user.
         """
-        user_search_results = self.instagram_data_service.users_search(q=options[Opt.Username])
+        user_info = self.instagram_data_service.user_info(options[Opt.Username])
 
-        user = None
-        for user_search_result in user_search_results['data']:
-            if user_search_result['username'] == options[Opt.Username]:
-                user = user_search_result
-                break
-
-        if user is None:
+        if user_info is None:
             raise Exception("API Error")
 
-        user_images = self.instagram_data_service.users_user_id_media_recent(user['id'], count=200)['data']
+        images = []
+
+        while True:
+            time.sleep(2)
+            after = None
+
+            if len(images) > 0:
+                after = images[-1]['id']
+
+            images_from_pass = self.instagram_data_service.users_user_id_media_recent(
+                user_info['data']['id'],
+                count=50,
+                after=after
+            )['data']
+
+            images.extend(images_from_pass)
+
+            if len(images_from_pass) is not 50:
+                break
 
         like_count = 0
-        while user_images:
-            like_count += user_images[0]['likes']['count']
-            user_images = user_images[1:]
+
+        while images:
+            like_count += images[0]['likes']['count']
+            images = images[1:]
 
         return like_count
 

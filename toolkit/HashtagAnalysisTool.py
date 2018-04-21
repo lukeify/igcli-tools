@@ -7,6 +7,7 @@ class HashtagAnalysisTool:
     Calculates the number of hashtags the user has used in their captions for their posts; along with a mean, median,
     mode, and most used hashtags.
     """
+
     def __init__(self, instagram_data_service: InstagramDataService) -> None:
         """
         Initialization.

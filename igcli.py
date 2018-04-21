@@ -1,8 +1,5 @@
 import sys
-import inspect
-import pyclbr
 import importlib
-import toolkit
 from InstagramDataService import InstagramDataService
 from Opt import Opt
 
@@ -18,7 +15,7 @@ def get_toolkit():
     Returns:
         A set of the tools available.
     """
-    return {'like-analysis', 'caption-hashtag-count-preview', 'user-scoreboard'}
+    return {'like-analysis', 'caption-hashtag-count-preview', 'hashtag-analysis', 'user-scoreboard'}
 
 
 def get_opts(argv):
